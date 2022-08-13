@@ -37,5 +37,5 @@ class Command(BaseCommand):
 
         # Создаем суперпользователя при помощи менеджера модели
         ShopUser.objects.create_superuser(
-            "admin", "admin@localhost", "adminadmin", age=33
+            "admin", "admin@localhost", "123"
         )

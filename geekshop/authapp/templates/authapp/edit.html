@@ -7,6 +7,7 @@
   <form method="post" url="{% url "auth:edit" %}" enctype="multipart/form-data">
       {% csrf_token %}
         {{ form.as_p }}
+        {{ profile_form.as_p }}
         <a href="{% url 'auth:change_password' %}"><input class="btn btn-warning  active" value="Сменить пароль"></a>
         <br/>
         <div align="center">
