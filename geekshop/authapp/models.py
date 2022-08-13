@@ -11,7 +11,7 @@ def get_activation_key_expiration_date():
 
 # Create your models here.
 class ShopUser(AbstractUser):
-    age = models.PositiveIntegerField(verbose_name="возраст")
+    age = models.PositiveIntegerField(verbose_name="возраст", blank=True, default=18)
     avatar = models.ImageField(verbose_name="аватар", blank=True, upload_to="users")
     phone = models.CharField(
         max_length=20,
