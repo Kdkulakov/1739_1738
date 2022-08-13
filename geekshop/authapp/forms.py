@@ -78,7 +78,7 @@ class ShopUserEditForm(UserChangeForm):
 
     def clean_age(self):
         age = self.cleaned_data["age"]
-        if age >= 99:
+        if age >= 90:
             raise forms.ValidationError(
                 "В таком возрасте уже не сидят на подобных сайтах"
             )
