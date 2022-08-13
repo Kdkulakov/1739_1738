@@ -5,7 +5,7 @@
 {% block content %}
 <div class="users_list">
   <button class="new_user">
-    <a href={% url 'admin:user_create' %}>
+    <a href={% url 'adminapp:user_create' %}>
       новый пользователь
     </a>
   </button>
@@ -23,12 +23,12 @@
     пользователь
     {% endif %}
     <button>
-      <a href={% url 'admin:user_update' object.pk %}>
+      <a href={% url 'adminapp:user_update' object.pk %}>
         редактировать
       </a>
     </button>
     <button>
-      <a href={% url 'admin:user_delete' object.pk %}>
+      <a href={% url 'adminapp:user_delete' object.pk %}>
         удалить
       </a>
     </button>

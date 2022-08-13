@@ -7,7 +7,7 @@ from mainapp import views as mainapp
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("admin_staff", include("adminapp.urls", namespace="admin_staff")),
+    path("admin_staff/", include("adminapp.urls", namespace="admin_staff")),
     path("", mainapp.index, name="main"),
     path("contact/", mainapp.contact, name="contact"),
     path("products/", include("mainapp.urls", namespace="products")),

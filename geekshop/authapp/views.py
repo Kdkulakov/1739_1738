@@ -2,12 +2,13 @@ from django.contrib import auth
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db import transaction
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
 
 from authapp.models import ShopUser
 
-from .forms import ShopUserEditForm, ShopUserLoginForm, ShopUserRegisterForm
+from .forms import ShopUserEditForm, ShopUserLoginForm, ShopUserRegisterForm, ShopUserProfileForm
 from .utils import send_verify_mail
 
 
@@ -83,19 +84,18 @@ def logout(request):
     return HttpResponseRedirect(reverse("main"))
 
 
-@login_required
+@transaction.atomic
 def edit(request):
     if request.method == "POST":
-        edit_form = ShopUserEditForm(
-            request.POST,
-            request.FILES,
-            instance=request.user,
-        )
-        if edit_form.is_valid():
+        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
+        profile_form = ShopUserProfileForm(request.POST, instance=request.user.shopuserprofile)
+
+        if edit_form.is_valid() and profile_form.is_valid():
             edit_form.save()
-            return HttpResponseRedirect(reverse("main"))
+            return HttpResponseRedirect(reverse("auth:edit"))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
+        profile_form = ShopUserProfileForm(request.POST, instance=request.user.shopuserprofile)
 
     return render(
         request,
@@ -103,6 +103,7 @@ def edit(request):
         context={
             "title": "Редактирование",
             "form": edit_form,
+            'profile_form': profile_form,
         },
     )
 
